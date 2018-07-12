@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Binary_Project_Structure_DataAccess.Models
 {
-    public class Pilot
+    public class Stewardess
     {
         public int Id { get; set; }
 
@@ -13,7 +13,5 @@ namespace Binary_Project_Structure_DataAccess.Models
         public string Surname { get; set; }
 
         public DateTime DateBirth { get; set; }
-
-        public int Experience { get; set; }
     }
 }

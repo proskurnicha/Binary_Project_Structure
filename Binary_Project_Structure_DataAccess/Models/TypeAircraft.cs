@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Binary_Project_Structure_DataAccess.Models
 {
-    class TypeAircraft
+    public class TypeAircraft
     {
         public int Id { get; set; }
 
