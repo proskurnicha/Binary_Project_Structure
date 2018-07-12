@@ -288,25 +288,25 @@ namespace Binary_Project_Structure_DataAccess
             if (Tickets is List<TEntity>)
                 return Tickets as List<TEntity>;
 
-            if (Stewardesses is TEntity)
+            if (Stewardesses is List<TEntity>)
                 return Stewardesses as List<TEntity>;
 
-            if (Pilots is TEntity)
+            if (Pilots is List<TEntity>)
                 return Pilots as List<TEntity>;
 
-            if (Departures is TEntity)
+            if (Departures is List<TEntity>)
                 return Departures as List<TEntity>;
 
-            if (Crews is TEntity)
+            if (Crews is List<TEntity>)
                 return Crews as List<TEntity>;
 
-            if (TypeAircrafts is TEntity)
+            if (TypeAircrafts is List<TEntity>)
                 return TypeAircrafts as List<TEntity>;
 
-            if (Aircrafts is TEntity)
+            if (Aircrafts is List<TEntity>)
                 return Aircrafts as List<TEntity>;
 
-            if(Flights is TEntity)
+            if(Flights is List<TEntity>)
                 return Flights as List<TEntity>;
 
             return null;
