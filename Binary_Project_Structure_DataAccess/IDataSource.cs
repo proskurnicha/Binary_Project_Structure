@@ -7,7 +7,7 @@ namespace Binary_Project_Structure_DataAccess
 {
     public interface IDataSource
     {
-        List<Flight> Flights { get; set; }
-        List<Ticket> Tickets { get;  set; }
+    //    List<Flight> Flights { get; set; }
+    //    List<Ticket> Tickets { get;  set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Binary_Project_Structure_DataAccess.Models;
 
@@ -7,39 +8,40 @@ namespace Binary_Project_Structure_DataAccess
 {
     public class DataSource : IDataSource
     {
-        public List<Flight> Flights { get; set; }
+        public static List<Flight> Flights { get; set; }
 
-        public List<Ticket> Tickets { get; set; }
+        public static List<Ticket> Tickets { get; set; }
 
-        //public List<Stewardess> Stewardesses { get; private set; }
+        public static List<Stewardess> Stewardesses { get; set; }
 
-        //public List<Pilot> Pilots { get; private set; }
+        public static List<Pilot> Pilots { get; set; }
 
-        //public List<Departure> Departures { get; private set; }
+        public static List<Departure> Departures { get; set; }
 
-        //public List<Crew> Crews { get; private set; }
+        public static List<Crew> Crews { get; set; }
 
-        //public List<TypeAircraft> TypeAircrafts { get; private set; }
+        public static List<TypeAircraft> TypeAircrafts { get; set; }
 
-        //public List<Aircraft> Aircrafts { get; private set; }
+        public static List<Aircraft> Aircrafts { get; set; }
 
-        public DataSource()
+        static DataSource()
         {
             if (Flights == null)
             {
                 GenerateFlights();
                 GenerateTickets();
-                //GenerateStewardess();
-                //GeneratePilots();
-                //GenerateCrews();
-                //GenerateTypeAircrafts();
-                //GenerateAircrafts();
-
-                //GenerateDepartures();
+                CreateConnectionFlightTicket();
+                GenerateStewardess();
+                GeneratePilots();
+                GenerateCrews();
+                GenerateTypeAircrafts();
+                GenerateAircrafts();
+                GenerateDepartures();
             }
         }
 
-        public void GenerateFlights()
+        #region GenerateFlightsAndTickets
+        public static void GenerateFlights()
         {
             Flights = new List<Flight>();
 
@@ -70,9 +72,9 @@ namespace Binary_Project_Structure_DataAccess
             });
         }
 
-        public void GenerateTickets()
+        public static void GenerateTickets()
         {
-            Tickets = new List<Ticket>(); 
+            Tickets = new List<Ticket>();
             Tickets.AddRange(new Ticket[] {
                 new Ticket()
                 {
@@ -95,160 +97,189 @@ namespace Binary_Project_Structure_DataAccess
             });
         }
 
-        //public void GenerateStewardess()
-        //{
-        //    Stewardesses.AddRange(new Stewardess[] {
-        //        new Stewardess()
-        //    {
-        //            Id = 1,
-        //            Name = "Natali",
-        //            Surname = "Sidorova",
-        //            DateBirth = new DateTime(1990, 12, 4)
-        //    },
-        //         new Stewardess()
-        //    {
-        //            Id = 2,
-        //            Name = "Kate",
-        //            Surname = "Petrova",
-        //            DateBirth = new DateTime(1995, 5, 15)
-        //    },
-        //         new Stewardess()
-        //    {
-        //            Id = 3,
-        //            Name = "Tanya",
-        //            Surname = "Durova",
-        //            DateBirth = new DateTime(1993, 7, 26)
-        //    }
-        //    });
-        //}
+        public static void CreateConnectionFlightTicket()
+        {
+            Flights = Flights.GroupJoin(Tickets, x => x.Id, x => x.FlightId,
+            (flight, tickets) => new Flight()
+            {
+                Id = flight.Id,
+                ArrivalPoint = flight.ArrivalPoint,
+                ArrivalTime = flight.ArrivalTime,
+                DeparturePoint = flight.DeparturePoint,
+                DepartureTime = flight.DepartureTime,
+                Tickets = new List<Ticket>(tickets)
+            }).ToList();
+        }
+        #endregion
 
-        //public void GeneratePilots()
-        //{
-        //    Pilots.AddRange(new Pilot[] {
-        //        new Pilot()
-        //    {
-        //            Id = 1,
-        //            Name = "Ivan",
-        //            Surname = "Ivanov",
-        //            DateBirth = new DateTime(1990, 12, 4),
-        //            Experience = 5
-        //    },
-        //         new Pilot()
-        //    {
-        //            Id = 2,
-        //            Name = "Petr",
-        //            Surname = "Petrov",
-        //            DateBirth = new DateTime(1995, 5, 15),
-        //            Experience = 10
-        //    },
-        //         new Pilot()
-        //    {
-        //            Id = 3,
-        //            Name = "Sidr",
-        //            Surname = "Sidorov",
-        //            DateBirth = new DateTime(1993, 7, 26),
-        //            Experience = 7
-        //    }
-        //    });
-        //}
+        #region GenerateCrew
+        public static void GenerateStewardess()
+        {
+            Stewardesses = new List<Stewardess>();
+            Stewardesses.AddRange(new Stewardess[] {
+                new Stewardess()
+            {
+                    Id = 1,
+                    Name = "Natali",
+                    Surname = "Sidorova",
+                    DateBirth = new DateTime(1990, 12, 4)
+            },
+                 new Stewardess()
+            {
+                    Id = 2,
+                    Name = "Kate",
+                    Surname = "Petrova",
+                    DateBirth = new DateTime(1995, 5, 15)
+            },
+                 new Stewardess()
+            {
+                    Id = 3,
+                    Name = "Tanya",
+                    Surname = "Durova",
+                    DateBirth = new DateTime(1993, 7, 26)
+            }
+            });
+        }
 
-        //public void GenerateCrews()
-        //{
-        //    Crews.AddRange(new Crew[] {
-        //        new Crew()
-        //        {
-        //            Id = 1,
-        //            PilotId = 1,
-        //            Stewardesses = this.Stewardesses
-        //        },
-        //        new Crew()
-        //        {
-        //            Id = 2,
-        //            PilotId = 2,
-        //            Stewardesses = this.Stewardesses
-        //        },
-        //        new Crew()
-        //        {
-        //            Id = 3,
-        //            PilotId = 3,
-        //            Stewardesses = this.Stewardesses
-        //        }
-        //    });
-        //}
+        public static void GeneratePilots()
+        {
+            Pilots = new List<Pilot>();
+            Pilots.AddRange(new Pilot[] {
+                new Pilot()
+            {
+                    Id = 1,
+                    Name = "Ivan",
+                    Surname = "Ivanov",
+                    DateBirth = new DateTime(1990, 12, 4),
+                    Experience = 5
+            },
+                 new Pilot()
+            {
+                    Id = 2,
+                    Name = "Petr",
+                    Surname = "Petrov",
+                    DateBirth = new DateTime(1995, 5, 15),
+                    Experience = 10
+            },
+                 new Pilot()
+            {
+                    Id = 3,
+                    Name = "Sidr",
+                    Surname = "Sidorov",
+                    DateBirth = new DateTime(1993, 7, 26),
+                    Experience = 7
+            }
+            });
+        }
 
-        //public void GenerateTypeAircrafts()
-        //{
-        //    TypeAircrafts.AddRange(new TypeAircraft[] {
-        //        new TypeAircraft()
-        //        {
-        //            Id = 1,
-        //            AircraftModel = AircraftModel.IL_96_300,
-        //            NumberPlaces = 797,
-        //            CarryingCapacity = 240000
+        public static void GenerateCrews()
+        {
+            Crews = new List<Crew>();
+            Crews.AddRange(new Crew[] {
+                new Crew()
+                {
+                    Id = 1,
+                    PilotId = 1,
+                    Stewardesses = DataSource.Stewardesses
+                },
+                new Crew()
+                {
+                    Id = 2,
+                    PilotId = 2,
+                    Stewardesses = DataSource.Stewardesses
+                },
+                new Crew()
+                {
+                    Id = 3,
+                    PilotId = 3,
+                    Stewardesses = DataSource.Stewardesses
+                }
+            });
+        }
 
-        //        },
-        //        new TypeAircraft()
-        //        {
-        //            Id = 2,
-        //            AircraftModel = AircraftModel.Airbus_A310,
-        //            NumberPlaces = 183,
-        //            CarryingCapacity = 164000
-        //        }
-        //    });
-        //}
+        #endregion
 
-        //public void GenerateAircrafts()
-        //{
-        //    Aircrafts.AddRange(new Aircraft[]
-        //    {
-        //        new Aircraft()
-        //        {
-        //            Id = 1,
-        //            TypeAircraftId = 1,
-        //            AircraftName = "Star",
-        //            DateRelease = new DateTime(1998, 05, 12),
-        //            Lifetime = new TimeSpan(1000, 0, 0, 0)
-        //        },
-        //        new Aircraft()
-        //        {
-        //            Id = 2,
-        //            TypeAircraftId = 2,
-        //            AircraftName = "Cometa",
-        //            DateRelease = new DateTime(1991, 10, 03),
-        //            Lifetime = new TimeSpan(2500, 0, 0, 0)
-        //        }
-        //    });
-        //}
+        #region GenerateAircraft
+        public static void GenerateTypeAircrafts()
+        {
+            TypeAircrafts = new List<TypeAircraft>();
+            TypeAircrafts.AddRange(new TypeAircraft[] {
+                new TypeAircraft()
+                {
+                    Id = 1,
+                    AircraftModel = AircraftModel.IL_96_300,
+                    NumberPlaces = 797,
+                    CarryingCapacity = 240000
 
-        //public void GenerateDepartures()
-        //{
-        //    Departures.AddRange(new Departure[] {
-        //        new Departure()
-        //        {
-        //            Id = 1,
-        //            AircraftId = 1,
-        //            CrewId = 1,
-        //            FlightId = 1,
-        //            DepartureTime = new DateTime(2018, 07, 13)
-        //        },
-        //        new Departure()
-        //        {
-        //            Id = 2,
-        //            AircraftId = 2,
-        //            CrewId = 2,
-        //            FlightId = 2,
-        //            DepartureTime = new DateTime(2018, 07, 15)
-        //        },
-        //        new Departure()
-        //        {
-        //            Id = 3,
-        //            AircraftId = 1,
-        //            CrewId = 3,
-        //            FlightId = 3,
-        //            DepartureTime = new DateTime(2018, 07, 14)
-        //        },
-        //    });
-        //}
+                },
+                new TypeAircraft()
+                {
+                    Id = 2,
+                    AircraftModel = AircraftModel.Airbus_A310,
+                    NumberPlaces = 183,
+                    CarryingCapacity = 164000
+                }
+            });
+        }
 
+        public static void GenerateAircrafts()
+        {
+            Aircrafts = new List<Aircraft>();
+
+            Aircrafts.AddRange(new Aircraft[]
+            {
+                new Aircraft()
+                {
+                    Id = 1,
+                    TypeAircraftId = 1,
+                    AircraftName = "Star",
+                    DateRelease = new DateTime(1998, 05, 12),
+                    Lifetime = new TimeSpan(1000, 0, 0, 0)
+                },
+                new Aircraft()
+                {
+                    Id = 2,
+                    TypeAircraftId = 2,
+                    AircraftName = "Cometa",
+                    DateRelease = new DateTime(1991, 10, 03),
+                    Lifetime = new TimeSpan(2500, 0, 0, 0)
+                }
+            });
+        }
+        #endregion
+
+        #region GenerateDeparture
+
+        public static void GenerateDepartures()
+        {
+            Departures = new List<Departure>();
+            Departures.AddRange(new Departure[] {
+                new Departure()
+                {
+                    Id = 1,
+                    AircraftId = 1,
+                    CrewId = 1,
+                    FlightId = 1,
+                    DepartureTime = new DateTime(2018, 07, 13)
+                },
+                new Departure()
+                {
+                    Id = 2,
+                    AircraftId = 2,
+                    CrewId = 2,
+                    FlightId = 2,
+                    DepartureTime = new DateTime(2018, 07, 15)
+                },
+                new Departure()
+                {
+                    Id = 3,
+                    AircraftId = 1,
+                    CrewId = 3,
+                    FlightId = 3,
+                    DepartureTime = new DateTime(2018, 07, 14)
+                },
+            });
+        }
+        #endregion
     }
 }

@@ -2,66 +2,66 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Binary_Project_Structure_BLL.Interfaces;
+using Binary_Project_Structure_Shared.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Binary_Project_Structure_BLL.Interfaces;
-using Binary_Project_Structure_BLL.Services;
-using Binary_Project_Structure_Shared.DTOs;
+
 namespace Binary_Project_Structure.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Flights")]
-    public class FlightsController : Controller
+    [Route("api/Tickets")]
+    public class TicketsController : Controller
     {
-        IFlightService service;
+        ITicketService service;
 
-        public FlightsController(IFlightService service)
+        public TicketsController(ITicketService service)
         {
             this.service = service;
         }
 
-        // GET: api/Flights
-        [HttpGet]
-        public IActionResult Get()
+        // GET: api/Tickets
+        [HttpGet(Name = "GetTickets")]
+        public IActionResult GetTickets()
         {
             return Ok(service.GetAll());
         }
 
-        // GET: api/Flights/5
-        [HttpGet("{id}", Name = "Get")]
-        public IActionResult Get(int id)
+        // GET: api/Tickets/5
+        [HttpGet("{id}", Name = "GetTicket")]
+        public IActionResult GetTicket(int id)
         {
-            FlightDto flight = service.GetById(id);
-            if (flight == null)
+            TicketDto ticket = service.GetById(id);
+            if (ticket == null)
             {
                 return NotFound();
             }
-            return Ok(flight);
+            return Ok(ticket);
         }
-
-        // POST: api/Flights
+        
+        // POST: api/Tickets
         [HttpPost]
-        public IActionResult Post([FromBody]FlightDto flight)
+        public IActionResult Post([FromBody]TicketDto ticket)
         {
-            if (flight == null)
+            if (ticket == null)
             {
-                ModelState.AddModelError("", "Не указаны данные для полёта");
+                ModelState.AddModelError("", "Не указаны данные для билета");
                 return BadRequest(ModelState);
             }
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            service.Create(flight);
+            service.Create(ticket);
 
-            return Created("api/Flights", flight);
+            return Created("api/Tickets", ticket);
         }
-
-        // PUT: api/Flights/5
+        
+        // PUT: api/Tickets/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]FlightDto flight)
+        public IActionResult Put(int id, [FromBody]TicketDto ticket)
         {
-            if (flight == null)
+            if (ticket == null)
             {
                 ModelState.AddModelError("", "Не указаны данные для полёта");
                 return BadRequest(ModelState);
@@ -70,11 +70,11 @@ namespace Binary_Project_Structure.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            service.Update(flight);
+            service.Update(ticket);
 
-            return Ok(flight);
+            return Ok(ticket);
         }
-
+        
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)

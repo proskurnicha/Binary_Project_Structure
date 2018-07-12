@@ -9,7 +9,7 @@ namespace Binary_Project_Structure_DataAccess.Interfaces
     {
         IRepository<Flight> Flights { get; }
 
-        //IRepository<Aircraft> Aircrafts { get; }
+        IRepository<Ticket> Tickets { get; }
 
         //int SaveChages();
 

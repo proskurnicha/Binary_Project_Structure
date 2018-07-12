@@ -9,31 +9,24 @@ namespace Binary_Project_Structure_DataAccess.Repositories
 {
     public class FlightRepository : IRepository<Flight>
     {
-        protected readonly IDataSource source;
-
-        public FlightRepository(IDataSource source)
-        {
-            this.source = source;
-        }
-
         public Flight GetById(object id)
         {
-            return source.Flights.Find(x => x.Id == (int)id);
+            return DataSource.Flights.Find(x => x.Id == (int)id);
         }
 
         public List<Flight> Get()
         {
-            return source.Flights;
+            return DataSource.Flights;
         }
 
         public void Create(Flight entity)
         {
-            source.Flights.Add(entity);
+            DataSource.Flights.Add(entity);
         }
 
         public void Update(Flight entity)
         {
-            Flight flight = source.Flights.First(x => x.Id == entity.Id);
+            Flight flight = DataSource.Flights.First(x => x.Id == entity.Id);
             flight.ArrivalPoint = entity.ArrivalPoint;
             flight.ArrivalTime = entity.ArrivalTime;
             flight.DeparturePoint = entity.DeparturePoint;
@@ -43,10 +36,10 @@ namespace Binary_Project_Structure_DataAccess.Repositories
 
         public bool Delete(object id)
         {
-            Flight flight = source.Flights.First(x => x.Id == (int)id);
+            Flight flight = DataSource.Flights.First(x => x.Id == (int)id);
             if (flight != null)
             {
-                source.Flights.Remove(flight);
+                DataSource.Flights.Remove(flight);
                 return true;
             }
             return false;
@@ -58,5 +51,4 @@ namespace Binary_Project_Structure_DataAccess.Repositories
             throw new NotImplementedException();
         }
     }
-
 }

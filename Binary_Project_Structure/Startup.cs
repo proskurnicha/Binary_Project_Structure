@@ -14,6 +14,9 @@ using System.Threading;
 using Ninject;
 using Ninject.Activation;
 using Ninject.Infrastructure.Disposal;
+using AutoMapper;
+using Binary_Project_Structure_DataAccess.Models;
+using Binary_Project_Structure_Shared.DTOs;
 
 namespace Binary_Project_Structure
 {
@@ -31,7 +34,7 @@ namespace Binary_Project_Structure
         {
             services.AddMvc();
             services.AddSingleton<IFlightService, FlightService>();
-
+            services.AddSingleton<ITicketService, TicketService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
