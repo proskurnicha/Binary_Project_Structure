@@ -18,7 +18,7 @@ namespace Binary_Project_Structure_DataAccess.Repositories
 
         public Flight GetById(object id)
         {
-            return source.Flights.First(x => x.Id == (int)id);
+            return source.Flights.Find(x => x.Id == (int)id);
         }
 
         public List<Flight> Get()
@@ -41,13 +41,15 @@ namespace Binary_Project_Structure_DataAccess.Repositories
             flight.Tickets = entity.Tickets;
         }
 
-        public void Delete(object id)
+        public bool Delete(object id)
         {
             Flight flight = source.Flights.First(x => x.Id == (int)id);
             if (flight != null)
             {
                 source.Flights.Remove(flight);
+                return true;
             }
+            return false;
         }
 
 

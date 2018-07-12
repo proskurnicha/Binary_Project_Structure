@@ -14,7 +14,7 @@ namespace Binary_Project_Structure_DataAccess.Interfaces
 
         void Update(TEntity entity);
 
-        void Delete(object id);
+        bool Delete(object id);
 
         void Save();
 

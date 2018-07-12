@@ -11,6 +11,6 @@ namespace Binary_Project_Structure_BLL.Interfaces
         FlightDto GetFlightById(int id);
         void Update(FlightDto flightDto);
         void Create(FlightDto flightDto);
-        void Delete(int id);
+        bool Delete(int id);
     }
 }

@@ -45,9 +45,9 @@ namespace Binary_Project_Structure_BLL.Services
             context.Flights.Create(flight);
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
-            context.Flights.Delete(id);
+            return context.Flights.Delete(id);
         }
     }
 }

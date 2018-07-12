@@ -19,39 +19,72 @@ namespace Binary_Project_Structure.Controllers
         {
             this.service = service;
         }
+
         // GET: api/Flights
         [HttpGet]
-        public IEnumerable<FlightDto> Get()
+        public IActionResult Get()
         {
-            return service.GetFlights();
+            return Ok(service.GetFlights());
         }
 
         // GET: api/Flights/5
         [HttpGet("{id}", Name = "Get")]
-        public FlightDto Get(int id)
+        public IActionResult Get(int id)
         {
-            return service.GetFlightById(id);
+            FlightDto flight = service.GetFlightById(id);
+            if (flight == null)
+            {
+                return NotFound();
+            }
+            return Ok(flight);
         }
 
         // POST: api/Flights
         [HttpPost]
-        public void Post([FromBody]FlightDto flight)
+        public IActionResult Post([FromBody]FlightDto flight)
         {
+            if (flight == null)
+            {
+                ModelState.AddModelError("", "Не указаны данные для полёта");
+                return BadRequest(ModelState);
+            }
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             service.Create(flight);
+
+            return Created("api/Flights", flight);
         }
 
         // PUT: api/Flights/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]FlightDto flight)
+        public IActionResult Put(int id, [FromBody]FlightDto flight)
         {
+            if (flight == null)
+            {
+                ModelState.AddModelError("", "Не указаны данные для полёта");
+                return BadRequest(ModelState);
+            }
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             service.Update(flight);
+
+            return Ok(flight);
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            service.Delete(id);
+            bool result = service.Delete(id);
+
+            if (!result)
+                return NotFound();
+
+            return NoContent();
         }
     }
 }
