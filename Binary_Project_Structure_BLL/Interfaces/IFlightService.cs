@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Binary_Project_Structure_Shared.DTOs;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using Binary_Project_Structure_DataAccess.Models;
-using Binary_Project_Structure_Shared.DTOs; 
 
 namespace Binary_Project_Structure_BLL.Interfaces
 {
@@ -10,8 +9,8 @@ namespace Binary_Project_Structure_BLL.Interfaces
     {
         List<FlightDto> GetAll();
         FlightDto GetById(int id);
-        void Update(FlightDto flightDto);
-        void Create(FlightDto flightDto);
+        void Create(FlightDto entity);
+        void Update(FlightDto entity);
         bool Delete(int id);
     }
 }

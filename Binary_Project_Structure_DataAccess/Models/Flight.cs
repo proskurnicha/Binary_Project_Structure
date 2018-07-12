@@ -17,5 +17,8 @@ namespace Binary_Project_Structure_DataAccess.Models
         public TimeSpan ArrivalTime { get; set; }
 
         public List<Ticket> Tickets { get; set; }
+
+        public List<int> TicketsId { get; set; }
+
     }
 }

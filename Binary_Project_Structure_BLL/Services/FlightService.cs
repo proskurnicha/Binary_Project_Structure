@@ -11,48 +11,31 @@ using Binary_Project_Structure_DataAccess.UnitOfWork;
 
 namespace Binary_Project_Structure_BLL.Services
 {
-    public class FlightService : IFlightService
+    public class FlightService : Service, IFlightService 
     {
-        IMapper iMapper;
-        public IUnitOfWork context { get; private set; }
-
-        public FlightService()
-        {
-            IKernel ninjectKernel = new StandardKernel();
-            ninjectKernel.Bind<IUnitOfWork>().To<UnitOfWork>();
-            context = ninjectKernel.Get<IUnitOfWork>();
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<Flight, FlightDto>();
-            });
-            iMapper = config.CreateMapper();
-        }
-
         public List<FlightDto> GetAll()
         {
-            return iMapper.Map<List<Flight>, List<FlightDto>>(context.Flights.GetAll());
+            return GetAll<Flight, FlightDto>();
         }
 
         public FlightDto GetById(int id)
         {
-            return iMapper.Map<Flight, FlightDto>(context.Flights.GetById(x=>x.Id == id));
+            return GetById<Flight, FlightDto>(x => x.Id == id);
         }
 
-        public void Update(FlightDto flightDto)
+        public void Create(FlightDto entity)
         {
-            Flight flight = iMapper.Map<FlightDto, Flight>(flightDto);
-            context.Flights.Update(flight);
+            Create<FlightDto, Flight>(entity);
         }
 
-        public void Create(FlightDto flightDto)
+        public void Update(FlightDto entity)
         {
-            Flight flight = iMapper.Map<FlightDto, Flight>(flightDto);
-            context.Flights.Create(flight);
+            Update<FlightDto, Flight>(entity);
         }
-
-        public bool Delete(int id)
+        
+        bool IFlightService.Delete(int id)
         {
-            Predicate<Flight> flight = new Predicate<Flight>(x => x.Id == id);
-            return context.Flights.Delete(flight);
+            return Delete<Flight>(x => x.Id == id);
         }
     }
 }

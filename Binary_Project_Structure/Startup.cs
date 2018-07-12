@@ -34,7 +34,6 @@ namespace Binary_Project_Structure
         {
             services.AddMvc();
             services.AddSingleton<IFlightService, FlightService>();
-            services.AddSingleton<ITicketService, TicketService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

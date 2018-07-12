@@ -21,7 +21,9 @@ namespace Binary_Project_Structure_DataAccess.Interfaces
 
         IRepository<Ticket> Tickets { get; }
 
-        IRepository<TypeAircraft> TypesAircraft { get; }
+        IRepository<TypeAircraft> TypesAircrafts { get; }
+
+        TEntity Set<TEntity>() where TEntity : class;
 
         //int SaveChages();
 

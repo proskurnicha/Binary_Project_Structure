@@ -11,7 +11,7 @@ using System.Text;
 
 namespace Binary_Project_Structure_BLL.Services
 {
-    public class TicketService : ITicketService
+    public class TicketService 
     {
         public IUnitOfWork context { get; private set; }
         IMapper iMapper;

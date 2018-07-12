@@ -22,6 +22,6 @@ namespace Binary_Project_Structure_Shared.DTOs
         [Required]
         public TimeSpan ArrivalTime { get; set; }
 
-        public List<TicketDto> Tickets { get; set; }
+        public List<int> TicketsId { get; set; }
     }
 }

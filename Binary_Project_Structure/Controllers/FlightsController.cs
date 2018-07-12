@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Binary_Project_Structure_BLL.Interfaces;
 using Binary_Project_Structure_BLL.Services;
 using Binary_Project_Structure_Shared.DTOs;
+using Binary_Project_Structure_DataAccess.Models;
+
 namespace Binary_Project_Structure.Controllers
 {
     [Produces("application/json")]

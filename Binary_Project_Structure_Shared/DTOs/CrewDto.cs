@@ -2,19 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Binary_Project_Structure_DataAccess.Models
+namespace Binary_Project_Structure_Shared.DTOs
 {
-    public class Crew
+    public class CrewDto
     {
         public int Id { get; set; }
 
         public int PilotId { get; set; }
 
-        public Pilot Pilot { get; set; }
-
-        public List<Stewardess> Stewardesses { get; set; }
-
         public List<int> StewardessesId { get; set; }
-
     }
 }

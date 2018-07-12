@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Binary_Project_Structure_DataAccess.Interfaces;
 namespace Binary_Project_Structure_DataAccess.Repositories
 {
-    public class Repository<TEntity> : IRepository<TEntity>
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         DataSource dataSource;
 
@@ -16,7 +16,7 @@ namespace Binary_Project_Structure_DataAccess.Repositories
             dataSource = new DataSource();
         }
 
-        public virtual List<TEntity> GetAll()
+        public virtual List<TEntity> GetAll() 
         {
             List<TEntity> query = dataSource.Set<TEntity>();
 

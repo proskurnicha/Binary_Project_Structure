@@ -85,7 +85,7 @@ namespace Binary_Project_Structure_DataAccess.UnitOfWork
             }
         }
 
-        public IRepository<Ticket> Tickets
+        public IRepository<Ticket> Tickets  
         {
             get
             {
@@ -95,7 +95,7 @@ namespace Binary_Project_Structure_DataAccess.UnitOfWork
             }
         }
 
-        public IRepository<TypeAircraft> TypesAircraft
+        public IRepository<TypeAircraft> TypesAircrafts
         {
             get
             {
@@ -103,6 +103,35 @@ namespace Binary_Project_Structure_DataAccess.UnitOfWork
                     typeAircraftRepository = new TypeAircraftRepository();
                 return typeAircraftRepository;
             }
+        }
+
+        public TEntity Set<TEntity>()  where TEntity : class
+        {
+            if (Tickets is TEntity)
+                return Tickets as TEntity;
+
+            if (Stewardesses is TEntity)
+                return Stewardesses as TEntity;
+
+            if (Pilots is TEntity)
+                return Pilots as TEntity;
+
+            if (Departures is TEntity)
+                return Departures as TEntity;
+
+            if (Crews is TEntity)
+                return Crews as TEntity;
+
+            if (TypesAircrafts is TEntity)
+                return TypesAircrafts as TEntity;
+
+            if (Aircrafts is TEntity)
+                return Aircrafts as TEntity;
+
+            if (Flights is TEntity)
+                return Flights as TEntity;
+
+            return null;
         }
     }
 }

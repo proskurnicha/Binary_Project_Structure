@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Binary_Project_Structure_DataAccess.Interfaces
 {
-    public interface IRepository<TEntity>
+    public interface IRepository<TEntity> where TEntity : class
     {
         List<TEntity> GetAll();
 
