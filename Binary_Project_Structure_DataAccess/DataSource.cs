@@ -6,7 +6,7 @@ using Binary_Project_Structure_DataAccess.Models;
 
 namespace Binary_Project_Structure_DataAccess
 {
-    public class DataSource : IDataSource
+    public class DataSource
     {
         public static List<Flight> Flights { get; set; }
 
@@ -281,5 +281,36 @@ namespace Binary_Project_Structure_DataAccess
             });
         }
         #endregion
+
+        public List<TEntity> Set<TEntity>()
+        {
+
+            if (Tickets is List<TEntity>)
+                return Tickets as List<TEntity>;
+
+            if (Stewardesses is TEntity)
+                return Stewardesses as List<TEntity>;
+
+            if (Pilots is TEntity)
+                return Pilots as List<TEntity>;
+
+            if (Departures is TEntity)
+                return Departures as List<TEntity>;
+
+            if (Crews is TEntity)
+                return Crews as List<TEntity>;
+
+            if (TypeAircrafts is TEntity)
+                return TypeAircrafts as List<TEntity>;
+
+            if (Aircrafts is TEntity)
+                return Aircrafts as List<TEntity>;
+
+            if(Flights is TEntity)
+                return Flights as List<TEntity>;
+
+            return null;
+        }
     }
 }
+

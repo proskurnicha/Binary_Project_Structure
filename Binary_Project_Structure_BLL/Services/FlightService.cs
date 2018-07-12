@@ -29,12 +29,12 @@ namespace Binary_Project_Structure_BLL.Services
 
         public List<FlightDto> GetAll()
         {
-            return iMapper.Map<List<Flight>, List<FlightDto>>(context.Flights.Get());
+            return iMapper.Map<List<Flight>, List<FlightDto>>(context.Flights.GetAll());
         }
 
         public FlightDto GetById(int id)
         {
-            return iMapper.Map<Flight, FlightDto>(context.Flights.GetById(id));
+            return iMapper.Map<Flight, FlightDto>(context.Flights.GetById(x=>x.Id == id));
         }
 
         public void Update(FlightDto flightDto)
@@ -51,7 +51,8 @@ namespace Binary_Project_Structure_BLL.Services
 
         public bool Delete(int id)
         {
-            return context.Flights.Delete(id);
+            Predicate<Flight> flight = new Predicate<Flight>(x => x.Id == id);
+            return context.Flights.Delete(flight);
         }
     }
 }

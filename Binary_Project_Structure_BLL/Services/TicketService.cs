@@ -20,7 +20,8 @@ namespace Binary_Project_Structure_BLL.Services
             IKernel ninjectKernel = new StandardKernel();
             ninjectKernel.Bind<IUnitOfWork>().To<UnitOfWork>();
             context = ninjectKernel.Get<IUnitOfWork>();
-            var config = new MapperConfiguration(cfg => {
+            var config = new MapperConfiguration(cfg =>
+            {
                 cfg.CreateMap<Ticket, TicketDto>();
             });
             iMapper = config.CreateMapper();
@@ -28,12 +29,12 @@ namespace Binary_Project_Structure_BLL.Services
 
         public List<TicketDto> GetAll()
         {
-            return iMapper.Map<List<Ticket>, List<TicketDto>>(context.Tickets.Get());
+            return iMapper.Map<List<Ticket>, List<TicketDto>>(context.Tickets.GetAll());
         }
 
         public TicketDto GetById(int id)
         {
-            return iMapper.Map<Ticket, TicketDto>(context.Tickets.GetById(id));
+            return iMapper.Map<Ticket, TicketDto>(context.Tickets.GetById(x => x.Id == id));
         }
 
         public void Update(TicketDto TicketDto)
@@ -50,8 +51,8 @@ namespace Binary_Project_Structure_BLL.Services
 
         public bool Delete(int id)
         {
-            return context.Tickets.Delete(id);
+            return context.Tickets.Delete(x => x.Id == id);
         }
-        
+
     }
 }
