@@ -5,12 +5,12 @@ using System.Text;
 
 namespace Binary_Project_Structure_BLL.Interfaces
 {
-    public interface IAircraftService
+    public interface IPilotService
     {
-        List<AircraftDto> GetAll();
-        AircraftDto GetById(int id);
-        void Create(AircraftDto entity);
-        void Update(AircraftDto entity);
+        List<PilotDto> GetAll();
+        PilotDto GetById(int id);
+        void Create(PilotDto entity);
+        void Update(PilotDto entity);
         bool Delete(int id);
     }
 }

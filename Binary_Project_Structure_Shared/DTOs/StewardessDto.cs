@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Binary_Project_Structure_Shared.DTOs
 {
-    class StewardessDto
+    public class StewardessDto
     {
         public int Id { get; set; }
 
