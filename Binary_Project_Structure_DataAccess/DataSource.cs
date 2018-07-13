@@ -52,6 +52,7 @@ namespace Binary_Project_Structure_DataAccess
                 ArrivalPoint = "Berlin",
                 DepartureTime = new TimeSpan(4, 46, 0),
                 ArrivalTime = new TimeSpan(10, 29, 0),
+                TicketsId  = new List<int>(){1,2}
             },
             new Flight()
             {
@@ -60,6 +61,7 @@ namespace Binary_Project_Structure_DataAccess
                 ArrivalPoint = "Riga",
                 DepartureTime = new TimeSpan(11, 30, 0),
                 ArrivalTime = new TimeSpan(8, 05, 0),
+                TicketsId  = new List<int>(){2, 3}
             },
             new Flight()
             {
@@ -68,6 +70,7 @@ namespace Binary_Project_Structure_DataAccess
                 ArrivalPoint = "Brussels",
                 DepartureTime = new TimeSpan(05, 48, 0),
                 ArrivalTime = new TimeSpan(3, 15, 0),
+                TicketsId  = new List<int>(){1, 3}
             }
             });
         }
@@ -90,7 +93,7 @@ namespace Binary_Project_Structure_DataAccess
                 },
                 new Ticket()
                 {
-                    Id = 2,
+                    Id = 3,
                     Price = 400,
                     FlightId = 3,
                 }
@@ -107,7 +110,8 @@ namespace Binary_Project_Structure_DataAccess
                 ArrivalTime = flight.ArrivalTime,
                 DeparturePoint = flight.DeparturePoint,
                 DepartureTime = flight.DepartureTime,
-                Tickets = new List<Ticket>(tickets)
+                Tickets = new List<Ticket>(tickets),
+                TicketsId = flight.TicketsId
             }).ToList();
         }
         #endregion
@@ -180,19 +184,22 @@ namespace Binary_Project_Structure_DataAccess
                 {
                     Id = 1,
                     PilotId = 1,
-                    Stewardesses = DataSource.Stewardesses
+                    Stewardesses = DataSource.Stewardesses,
+                    StewardessesId = new List<int>(){1,2,3}
                 },
                 new Crew()
                 {
                     Id = 2,
                     PilotId = 2,
-                    Stewardesses = DataSource.Stewardesses
+                    Stewardesses = DataSource.Stewardesses,
+                    StewardessesId = new List<int>(){1,2,3}
                 },
                 new Crew()
                 {
                     Id = 3,
                     PilotId = 3,
-                    Stewardesses = DataSource.Stewardesses
+                    Stewardesses = DataSource.Stewardesses,
+                    StewardessesId = new List<int>(){1,2,3}
                 }
             });
         }
@@ -306,7 +313,7 @@ namespace Binary_Project_Structure_DataAccess
             if (Aircrafts is List<TEntity>)
                 return Aircrafts as List<TEntity>;
 
-            if(Flights is List<TEntity>)
+            if (Flights is List<TEntity>)
                 return Flights as List<TEntity>;
 
             return null;

@@ -7,7 +7,7 @@ using Binary_Project_Structure_Shared.DTOs;
 
 namespace Binary_Project_Structure_BLL.Services
 {
-    public class TypeTypeTypeAircraftService : Service, ITypeAircraftService
+    public class TypeAircraftService : Service, ITypeAircraftService
     {
         public List<TypeAircraftDto> GetAll()
         {

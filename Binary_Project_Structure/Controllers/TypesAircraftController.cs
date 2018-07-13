@@ -2,79 +2,77 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Binary_Project_Structure_BLL.Interfaces;
+using Binary_Project_Structure_Shared.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Binary_Project_Structure_BLL.Interfaces;
-using Binary_Project_Structure_BLL.Services;
-using Binary_Project_Structure_Shared.DTOs;
-using Binary_Project_Structure_DataAccess.Models;
 
 namespace Binary_Project_Structure.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Flights")]
-    public class FlightsController : Controller
+    [Route("api/TypesAircraft")]
+    public class TypesAircraftController : Controller
     {
-        IFlightService service;
+        ITypeAircraftService service;
 
-        public FlightsController(IFlightService service)
+        public TypesAircraftController(ITypeAircraftService service)
         {
             this.service = service;
         }
 
-        // GET: api/Flights
+        // GET: api/TypesAircraft
         [HttpGet]
         public IActionResult Get()
         {
             return Ok(service.GetAll());
         }
 
-        // GET: api/Flights/5
+        // GET: api/TypesAircraft/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            FlightDto flight = service.GetById(id);
-            if (flight == null)
+            TypeAircraftDto TypeAircraft = service.GetById(id);
+            if (TypeAircraft == null)
             {
                 return NotFound();
             }
-            return Ok(flight);
+            return Ok(TypeAircraft);
         }
 
-        // POST: api/Flights
+        // POST: api/TypesAircraft
         [HttpPost]
-        public IActionResult Post([FromBody]FlightDto flight)
+        public IActionResult Post([FromBody]TypeAircraftDto TypeAircraft)
         {
-            if (flight == null)
+            if (TypeAircraft == null)
             {
-                ModelState.AddModelError("", "Не указаны данные для полёта");
+                ModelState.AddModelError("", "Не указаны данные для типа cамолёта");
                 return BadRequest(ModelState);
             }
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            service.Create(flight);
+            service.Create(TypeAircraft);
 
-            return Created("api/Flights", flight);
+            return Created("api/TypesAircrafts", TypeAircraft);
         }
 
-        // PUT: api/Flights/5
+        // PUT: api/TypesAircraft/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]FlightDto flight)
+        public IActionResult Put(int id, [FromBody]TypeAircraftDto TypeAircraft)
         {
-            if (flight == null)
+            if (TypeAircraft == null)
             {
-                ModelState.AddModelError("", "Не указаны данные для полёта");
+                ModelState.AddModelError("", "Не указаны данные для типа cамолёта");
                 return BadRequest(ModelState);
             }
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            service.Update(flight);
+            service.Update(TypeAircraft);
 
-            return Ok(flight);
+            return Ok(TypeAircraft);
         }
 
         // DELETE: api/ApiWithActions/5

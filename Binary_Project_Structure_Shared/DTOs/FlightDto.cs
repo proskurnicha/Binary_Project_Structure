@@ -8,6 +8,7 @@ namespace Binary_Project_Structure_Shared.DTOs
     public class FlightDto
     {
         [Required]
+        [StringLength(3, MinimumLength = 6, ErrorMessage = "Unacceptable id")]
         public int Id { get; set; }
 
         [Required]

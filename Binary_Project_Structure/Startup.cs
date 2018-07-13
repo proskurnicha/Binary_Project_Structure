@@ -33,8 +33,15 @@ namespace Binary_Project_Structure
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddSingleton<IAircraftService, AircraftService>();
+            services.AddSingleton<ICrewService, CrewService>();
+            services.AddSingleton<IDepartureService, DepartureService>();
             services.AddSingleton<IFlightService, FlightService>();
+            services.AddSingleton<IPilotService, PilotService>();
+            services.AddSingleton<IStewardessService, StewardessService>();
             services.AddSingleton<ITicketService, TicketService>();
+            services.AddSingleton<ITypeAircraftService, TypeAircraftService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -2,79 +2,77 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Binary_Project_Structure_BLL.Interfaces;
+using Binary_Project_Structure_Shared.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Binary_Project_Structure_BLL.Interfaces;
-using Binary_Project_Structure_BLL.Services;
-using Binary_Project_Structure_Shared.DTOs;
-using Binary_Project_Structure_DataAccess.Models;
 
 namespace Binary_Project_Structure.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Flights")]
-    public class FlightsController : Controller
+    [Route("api/Crews")]
+    public class CrewsController : Controller
     {
-        IFlightService service;
+        ICrewService service;
 
-        public FlightsController(IFlightService service)
+        public CrewsController(ICrewService service)
         {
             this.service = service;
         }
 
-        // GET: api/Flights
+        // GET: api/Crews
         [HttpGet]
         public IActionResult Get()
         {
             return Ok(service.GetAll());
         }
 
-        // GET: api/Flights/5
+        // GET: api/Crews/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            FlightDto flight = service.GetById(id);
-            if (flight == null)
+            CrewDto Crew = service.GetById(id);
+            if (Crew == null)
             {
                 return NotFound();
             }
-            return Ok(flight);
+            return Ok(Crew);
         }
 
-        // POST: api/Flights
+        // POST: api/Crews
         [HttpPost]
-        public IActionResult Post([FromBody]FlightDto flight)
+        public IActionResult Post([FromBody]CrewDto Crew)
         {
-            if (flight == null)
+            if (Crew == null)
             {
-                ModelState.AddModelError("", "Не указаны данные для полёта");
+                ModelState.AddModelError("", "Не указаны данные для экипажа");
                 return BadRequest(ModelState);
             }
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            service.Create(flight);
+            service.Create(Crew);
 
-            return Created("api/Flights", flight);
+            return Created("api/Crews", Crew);
         }
 
-        // PUT: api/Flights/5
+        // PUT: api/Crews/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]FlightDto flight)
+        public IActionResult Put(int id, [FromBody]CrewDto Crew)
         {
-            if (flight == null)
+            if (Crew == null)
             {
-                ModelState.AddModelError("", "Не указаны данные для полёта");
+                ModelState.AddModelError("", "Не указаны данные для экипажа");
                 return BadRequest(ModelState);
             }
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            service.Update(flight);
+            service.Update(Crew);
 
-            return Ok(flight);
+            return Ok(Crew);
         }
 
         // DELETE: api/ApiWithActions/5

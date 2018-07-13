@@ -29,7 +29,7 @@ namespace Binary_Project_Structure.Controllers
         }
 
         // GET: api/Tickets/5
-        [HttpGet("{id}", Name = "GetTicket")]
+        [HttpGet("{id}")]
         public IActionResult GetTicket(int id)
         {
             TicketDto ticket = service.GetById(id);

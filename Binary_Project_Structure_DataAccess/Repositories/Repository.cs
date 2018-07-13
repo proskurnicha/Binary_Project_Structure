@@ -16,7 +16,7 @@ namespace Binary_Project_Structure_DataAccess.Repositories
             dataSource = new DataSource();
         }
 
-        public virtual List<TEntity> GetAll() 
+        public virtual List<TEntity> GetAll()
         {
             List<TEntity> query = dataSource.Set<TEntity>();
 
@@ -25,7 +25,9 @@ namespace Binary_Project_Structure_DataAccess.Repositories
 
         public virtual TEntity GetById(Func<TEntity, bool> filter = null)
         {
-            List<TEntity> query = dataSource.Set<TEntity>();
+            var query = dataSource.Set<TEntity>().Where(filter);
+            if (query.Count() == 0)
+                return null;
 
             return query.Where(filter).First();
         }

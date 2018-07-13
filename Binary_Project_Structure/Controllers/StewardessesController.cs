@@ -2,79 +2,77 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Binary_Project_Structure_BLL.Interfaces;
+using Binary_Project_Structure_Shared.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Binary_Project_Structure_BLL.Interfaces;
-using Binary_Project_Structure_BLL.Services;
-using Binary_Project_Structure_Shared.DTOs;
-using Binary_Project_Structure_DataAccess.Models;
 
 namespace Binary_Project_Structure.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Flights")]
-    public class FlightsController : Controller
+    [Route("api/Stewardesses")]
+    public class StewardessesController : Controller
     {
-        IFlightService service;
+        IStewardessService service;
 
-        public FlightsController(IFlightService service)
+        public StewardessesController(IStewardessService service)
         {
             this.service = service;
         }
 
-        // GET: api/Flights
+        // GET: api/Stewardesses
         [HttpGet]
         public IActionResult Get()
         {
             return Ok(service.GetAll());
         }
 
-        // GET: api/Flights/5
+        // GET: api/Stewardesses/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            FlightDto flight = service.GetById(id);
-            if (flight == null)
+            StewardessDto Stewardess = service.GetById(id);
+            if (Stewardess == null)
             {
                 return NotFound();
             }
-            return Ok(flight);
+            return Ok(Stewardess);
         }
 
-        // POST: api/Flights
+        // POST: api/Stewardesses
         [HttpPost]
-        public IActionResult Post([FromBody]FlightDto flight)
+        public IActionResult Post([FromBody]StewardessDto Stewardess)
         {
-            if (flight == null)
+            if (Stewardess == null)
             {
-                ModelState.AddModelError("", "Не указаны данные для полёта");
+                ModelState.AddModelError("", "Не указаны данные для стюардеси");
                 return BadRequest(ModelState);
             }
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            service.Create(flight);
+            service.Create(Stewardess);
 
-            return Created("api/Flights", flight);
+            return Created("api/Stewardesses", Stewardess);
         }
 
-        // PUT: api/Flights/5
+        // PUT: api/Stewardesses/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]FlightDto flight)
+        public IActionResult Put(int id, [FromBody]StewardessDto Stewardess)
         {
-            if (flight == null)
+            if (Stewardess == null)
             {
-                ModelState.AddModelError("", "Не указаны данные для полёта");
+                ModelState.AddModelError("", "Не указаны данные для стюардеси");
                 return BadRequest(ModelState);
             }
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            service.Update(flight);
+            service.Update(Stewardess);
 
-            return Ok(flight);
+            return Ok(Stewardess);
         }
 
         // DELETE: api/ApiWithActions/5
