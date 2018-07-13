@@ -24,7 +24,9 @@ namespace Binary_Project_Structure_BLL.Services
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Flight, FlightDto>();
+                cfg.CreateMap<FlightDto, Flight>();
                 cfg.CreateMap<Ticket, TicketDto>();
+                cfg.CreateMap<TicketDto, Ticket>();
             });
             iMapper = config.CreateMapper();
         }

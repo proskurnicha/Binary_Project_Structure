@@ -14,9 +14,9 @@ namespace Binary_Project_Structure.Controllers
     [Route("api/Tickets")]
     public class TicketsController : Controller
     {
-        IServiceCommon service;
+        ITicketService service;
 
-        public TicketsController(IServiceCommon service)
+        public TicketsController(ITicketService service)
         {
             this.service = service;
         }
@@ -25,14 +25,14 @@ namespace Binary_Project_Structure.Controllers
         [HttpGet(Name = "GetTickets")]
         public IActionResult GetTickets()
         {
-            return Ok(service.GetAll<Ticket, TicketDto>());
+            return Ok(service.GetAll());
         }
 
         // GET: api/Tickets/5
         [HttpGet("{id}", Name = "GetTicket")]
         public IActionResult GetTicket(int id)
         {
-            TicketDto ticket = service.GetById<Ticket, TicketDto>(x => x.Id == id);
+            TicketDto ticket = service.GetById(id);
             if (ticket == null)
             {
                 return NotFound();
@@ -53,7 +53,7 @@ namespace Binary_Project_Structure.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            service.Create<TicketDto, Ticket>(ticket);
+            service.Create(ticket);
 
             return Created("api/Tickets", ticket);
         }
@@ -71,7 +71,7 @@ namespace Binary_Project_Structure.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            service.Update<TicketDto, Ticket>(ticket);
+            service.Update(ticket);
 
             return Ok(ticket);
         }
@@ -80,7 +80,7 @@ namespace Binary_Project_Structure.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            bool result = service.Delete<Ticket>(x => x.Id == id);
+            bool result = service.Delete(id);
 
             if (!result)
                 return NotFound();

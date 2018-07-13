@@ -11,48 +11,31 @@ using System.Text;
 
 namespace Binary_Project_Structure_BLL.Services
 {
-    public class TicketService 
+    public class TicketService : Service, ITicketService
     {
-        public IUnitOfWork context { get; private set; }
-        IMapper iMapper;
-        public TicketService()
-        {
-            IKernel ninjectKernel = new StandardKernel();
-            ninjectKernel.Bind<IUnitOfWork>().To<UnitOfWork>();
-            context = ninjectKernel.Get<IUnitOfWork>();
-            var config = new MapperConfiguration(cfg =>
-            {
-                cfg.CreateMap<Ticket, TicketDto>();
-            });
-            iMapper = config.CreateMapper();
-        }
-
         public List<TicketDto> GetAll()
         {
-            return iMapper.Map<List<Ticket>, List<TicketDto>>(context.Tickets.GetAll());
+            return GetAll<Ticket, TicketDto>();
         }
 
         public TicketDto GetById(int id)
         {
-            return iMapper.Map<Ticket, TicketDto>(context.Tickets.GetById(x => x.Id == id));
+            return GetById<Ticket, TicketDto>(x => x.Id == id);
         }
 
-        public void Update(TicketDto TicketDto)
+        public void Create(TicketDto entity)
         {
-            Ticket Ticket = iMapper.Map<TicketDto, Ticket>(TicketDto);
-            context.Tickets.Update(Ticket);
+            Create<TicketDto, Ticket>(entity);
         }
 
-        public void Create(TicketDto TicketDto)
+        public void Update(TicketDto entity)
         {
-            Ticket Ticket = iMapper.Map<TicketDto, Ticket>(TicketDto);
-            context.Tickets.Create(Ticket);
+            Update<TicketDto, Ticket>(entity);
         }
 
-        public bool Delete(int id)
+        bool ITicketService.Delete(int id)
         {
-            return context.Tickets.Delete(x => x.Id == id);
+            return Delete<Ticket>(x => x.Id == id);
         }
-
     }
 }
